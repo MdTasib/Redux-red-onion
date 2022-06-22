@@ -1,13 +1,23 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteToCart } from "../redux/action";
 
 const Cart = () => {
 	const dispatch = useDispatch();
 	const state = useSelector(state => state.cartReducer);
+	console.log(state);
+
+	const addProduct = product => {
+		dispatch(addToCart(product));
+	};
+
+	const deleteProduct = product => {
+		dispatch(deleteToCart(product));
+	};
 
 	let price = 0;
 	state.forEach(food => {
-		price += food.price;
+		price += food.price * food.qty;
 	});
 
 	let tax = Number(price) / 10;
@@ -16,20 +26,32 @@ const Cart = () => {
 
 	return (
 		<div className='container py-5'>
-			<h3 className='text-danger'>Select Your Foods - {state.length}</h3>
 			{state.map(food => (
 				<div
 					key={food.id}
 					className='row align-items-center py-2 my-2 bg-light rounded-pill'>
 					<div className='col-md-6'>
-						<img src={food?.image} width='100' height='' alt='' />
+						<img src={food?.image} width='150' height='' alt='' />
 					</div>
 					<div className='col-md-6'>
-						<p className='fw-bold m-0'>{food?.name}</p>
-						<p className='fw-bold text-danger m-0'>${food.price}</p>
+						<p className='fw-bold text-danger m-0'>{food?.name}</p>
 						<small className='text-secondary text-uppercase'>
 							{food.category}
 						</small>
+						<p className='fw-bold m-0 py-1'>
+							Total: {food.price} X {food.qty} = ${" "}
+							{(food.price * food.qty).toFixed(2)}
+						</p>
+						<button
+							className='btn btn-outline-danger me-2'
+							onClick={() => deleteProduct(food)}>
+							<i className='fa fa-minus'></i>
+						</button>
+						<button
+							className='btn btn-outline-danger me-2'
+							onClick={() => addProduct(food)}>
+							<i className='fa fa-plus'></i>
+						</button>
 					</div>
 				</div>
 			))}
@@ -41,10 +63,10 @@ const Cart = () => {
 					<p className='m-0'>Total</p>
 				</div>
 				<div className='col-md-6'>
-					<p className='m-0'>$ {price}</p>
-					<p className='m-0'>$ {tax}</p>
-					<p className='m-0'>$ {deliveryFee}</p>
-					<p className='m-0'>$ {total}</p>
+					<p className='m-0 fw-bold text-danger'>$ {price}</p>
+					<p className='m-0 fw-bold text-danger'>$ {tax}</p>
+					<p className='m-0 fw-bold text-danger'>$ {deliveryFee}</p>
+					<p className='m-0 fw-bold text-danger'>$ {total}</p>
 				</div>
 			</div>
 		</div>
