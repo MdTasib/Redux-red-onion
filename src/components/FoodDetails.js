@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useSelectedFood from "../hooks/useSelectedFood";
 import cartIcon from "../images/icons/cart.png";
@@ -26,6 +26,9 @@ const FoodDetails = () => {
 						onClick={() => addCart(selectedFood)}>
 						<img src={cartIcon} width='30' alt='' /> ADD
 					</button>
+					<Link to='/cart' className='btn btn-danger ms-2'>
+						<img src={cartIcon} width='30' alt='' /> GO TO CART
+					</Link>
 				</div>
 				<div className='col-md-6 text-end'>
 					<img src={selectedFood?.image} className='w-75' alt='' />

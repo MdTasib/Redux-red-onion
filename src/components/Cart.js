@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { addToCart, deleteToCart } from "../redux/action";
 
 const Cart = () => {
 	const dispatch = useDispatch();
 	const state = useSelector(state => state.cartReducer);
-	console.log(state);
 
 	const addProduct = product => {
 		dispatch(addToCart(product));
@@ -29,7 +29,7 @@ const Cart = () => {
 			{state.map(food => (
 				<div
 					key={food.id}
-					className='row align-items-center py-2 my-2 bg-light rounded-pill'>
+					className='row align-items-center py-2 my-2 bg-light rounded-pill shadow-sm'>
 					<div className='col-md-6'>
 						<img src={food?.image} width='150' height='' alt='' />
 					</div>
@@ -55,7 +55,7 @@ const Cart = () => {
 					</div>
 				</div>
 			))}
-			<div className='row justify-content-between align-items-center py-2 my-2 bg-light rounded'>
+			<div className='row justify-content-between align-items-center py-2 my-4 bg-light rounded shadow-sm'>
 				<div className='col-md-6'>
 					<p className='m-0'>Price</p>
 					<p className='m-0'>Tax</p>
@@ -68,6 +68,11 @@ const Cart = () => {
 					<p className='m-0 fw-bold text-danger'>$ {deliveryFee}</p>
 					<p className='m-0 fw-bold text-danger'>$ {total}</p>
 				</div>
+			</div>
+			<div className='text-center pt-4'>
+				<Link to='/checkout' className='btn btn-danger w-25'>
+					CHECK OUT
+				</Link>
 			</div>
 		</div>
 	);

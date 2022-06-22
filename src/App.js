@@ -8,6 +8,7 @@ import FoodDetails from "./components/FoodDetails";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 						<Route path='/home' element={<Home />} />
 						<Route path='/details/:id' element={<FoodDetails />} />
 						<Route path='/cart' element={<Cart />} />
+						<Route path='/checkout' element={<Checkout />} />
 						<Route path='/login' element={<Login />} />
 						<Route path='/singup' element={<Singup />} />
 					</Routes>
