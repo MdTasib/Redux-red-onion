@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import logo from "../images/extra/logo2.png";
 import cartIcon from "../images/icons/cart.png";
 
 const Navbar = () => {
+	const state = useSelector(state => state.cartReducer);
+
 	return (
 		<nav className='navbar navbar-expand-lg navbar-light'>
 			<div className='container'>
@@ -26,7 +29,7 @@ const Navbar = () => {
 							<Link className='nav-link' to='/cart'>
 								<img src={cartIcon} alt='' height='30' />
 								<small className='bg-danger text-white px-2 py-1 ms-2 rounded-circle'>
-									0
+									{state.length}
 								</small>
 							</Link>
 						</li>

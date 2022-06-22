@@ -1,11 +1,18 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import useSelectedFood from "../hooks/useSelectedFood";
 import cartIcon from "../images/icons/cart.png";
+import { addToCart } from "../redux/action";
 
 const FoodDetails = () => {
 	const { id } = useParams();
 	const [selectedFood, setSelectedFood] = useSelectedFood(id);
+	const dispatch = useDispatch();
+
+	const addCart = product => {
+		dispatch(addToCart(product));
+	};
 
 	return (
 		<div className='container py-5'>
@@ -14,7 +21,9 @@ const FoodDetails = () => {
 					<h2>{selectedFood?.name}</h2>
 					<small>{selectedFood?.description}</small>
 					<h4 className='pt-3'>$ {selectedFood?.price}</h4>
-					<button className='btn btn-outline-danger'>
+					<button
+						className='btn btn-outline-danger'
+						onClick={() => addCart(selectedFood)}>
 						<img src={cartIcon} width='30' alt='' /> ADD
 					</button>
 				</div>
